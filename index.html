@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fdfbf9">
+  <meta name="description" content="TaskFlow — спокойное пространство для ваших задач. Планируйте, действуйте и замечайте свой прогресс.">
+  <title>TaskFlow — пространство для важного</title>
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./css/style.css">
+  <script src="./js/app.js" defer></script>
+</head>
+<body>
+  <svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-list" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 4v16M12 9h5M12 13h5"/></symbol>
+    <symbol id="i-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4 4"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 10v7M14 10v7"/></symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24"><path d="m15 4 5 5M4 20l5-1L20 8a2 2 0 0 0-5-5L4 14Z"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="m12 3 8 3v6c0 5-8 9-8 9s-8-4-8-9V6Z"/><path d="m8 12 3 3 5-6"/></symbol>
+  </svg>
+
+  <a class="skip-link" href="#task-input">Перейти к задачам</a>
+  <div class="app-shell">
+    <header class="masthead">
+      <a class="brand" href="./" aria-label="TaskFlow — главная"><span class="logo-mark" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M8 7h23v27H8z"/><path d="M5 12h6M5 20h6M5 28h6m8-9 4 4 8-9"/></svg></span>taskflow</a>
+      <span class="masthead-note">маленькие шаги, большие дела</span>
+      <button class="help-button" type="button" data-help>Как это работает</button>
+      <a class="header-cta" href="#task-input">К задачам <span aria-hidden="true">↗</span></a>
+    </header>
+
+    <main id="main" class="main-content">
+      <section class="page-heading" aria-labelledby="page-title">
+        <div class="heading-content">
+          <span class="eyebrow">привет, это твой новый блокнот</span>
+          <h1 id="page-title">меньше хаоса.<br> больше <span class="marker-word">жизни.<svg viewBox="0 0 280 18" preserveAspectRatio="none" aria-hidden="true"><path d="M4 12Q78 1 145 9T276 6M16 16Q155 8 261 13"/></svg></span></h1>
+          <p class="intro">Для больших планов и маленьких «не забыть».<br>Записывай, делай, вычёркивай.<br>Всё остальное — <span>потом.</span></p>
+          <div class="hero-actions"><a class="header-cta hero-cta" href="#task-input">Записать первую мысль <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a><p class="hero-note">без регистрации. просто начни.</p></div>
+          <div class="little-note"><svg viewBox="0 0 80 60" aria-hidden="true"><path d="M4 8c37-12 65 3 55 29-4 11-15 13-23 6M48 38l-13 6 7 11"/></svg><span>не нужно успевать всё.<br>начни с чего-то одного :)</span></div>
+        </div>
+      </section>
+
+      <div class="workspace" id="workspace">
+        <span class="notebook-caption" aria-hidden="true">место для твоих планов ↴</span>
+        <svg class="sticker sticker-spark" viewBox="0 0 80 90" aria-hidden="true"><path d="m42 4 8 26 25 9-25 12-8 34-13-31L5 42l25-11Z" fill="#3b82f6"/><path d="m42 4 8 26 25 9-25 12-8 34-13-31L5 42l25-11Z"/><path d="m29 42 2 5m16-7 2 5m-16 9q8 5 14-3"/></svg>
+        <div class="product-window">
+        <div class="notebook-binding" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <section class="task-panel" aria-labelledby="tasks-heading">
+          <div class="window-topbar"><span>личный блокнот / 01</span><time id="current-date"></time></div>
+          <div class="task-panel-content">
+          <div id="storage-warning" class="warning-banner" role="alert" hidden></div>
+          <div class="section-heading"><div><h2 id="tasks-heading">дела на сегодня <span id="visible-count">0</span></h2><p>Не всё сразу. Одно за другим.</p></div><span class="heading-doodle" aria-hidden="true">✳</span></div>
+          <div class="daily-summary" aria-label="Статистика задач">
+            <p><strong data-stat="active">0</strong> активных <span class="summary-separator">·</span> <strong data-stat="completed">0</strong> выполнено</p>
+            <div class="progress-summary"><div id="progress-bar" class="progress-track" role="progressbar" aria-label="Выполненные задачи" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="progress-fill"></span></div><span id="progress-percent">0<span>%</span></span></div>
+          </div>
+          <form id="add-form" class="add-form" autocomplete="off" novalidate>
+            <label class="sr-only" for="task-input">Новая задача</label>
+            <svg class="icon input-plus" aria-hidden="true"><use href="#i-plus"/></svg>
+            <input id="task-input" name="task" type="text" maxlength="300" placeholder="Что хочется сделать?" aria-describedby="input-hint input-error" required>
+            <button type="submit" class="primary-button" aria-label="Добавить задачу"><span>Добавить</span><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></button>
+          </form>
+          <div class="input-footnote"><span id="input-hint"><kbd>Enter</kbd> — добавить задачу</span><span id="input-error" class="field-error" role="status"></span></div>
+
+          <div class="list-toolbar">
+            <div class="filter-tabs" role="group" aria-label="Показать задачи">
+              <button type="button" data-filter="all" class="is-active" aria-pressed="true">Все <span data-count="all">0</span></button>
+              <button type="button" data-filter="active" aria-pressed="false">Активные <span data-count="active">0</span></button>
+              <button type="button" data-filter="completed" aria-pressed="false">Выполненные <span data-count="completed">0</span></button>
+            </div>
+            <button class="icon-button search-toggle" type="button" id="search-toggle" aria-label="Поиск по задачам" aria-expanded="false" aria-controls="search-box"><svg class="icon" aria-hidden="true"><use href="#i-search"/></svg></button>
+          </div>
+          <div id="search-box" class="search-box" hidden><svg class="icon" aria-hidden="true"><use href="#i-search"/></svg><label class="sr-only" for="search-input">Поиск по задачам</label><input id="search-input" type="search" maxlength="300" placeholder="Найти задачу…" autocomplete="off"><span><kbd>Esc</kbd></span></div>
+          <ul id="task-list" class="task-list" aria-label="Список задач"></ul>
+          <div id="empty-state" class="empty-state">
+            <span class="empty-label">С чистого листа</span>
+            <h3 id="empty-title">Всё начинается с одной задачи</h3>
+            <p id="empty-description">Запишите то, что важно сейчас.<br>Первый шаг — уже движение вперёд.</p>
+            <div class="empty-actions"><button id="empty-action" type="button" class="text-button">Добавить первую задачу <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button><button id="demo-button" type="button" class="demo-button">Посмотреть пример</button></div>
+          </div>
+          <footer class="list-footer"><span id="remaining-label">Новый день — новые возможности</span><button type="button" id="clear-completed" class="clear-button" disabled>Очистить выполненные</button></footer>
+          </div>
+        </section>
+        </div>
+        <div class="notebook-bottom"><svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg><span>Твои планы остаются у тебя. Никаких серверов.</span></div>
+      </div>
+    </main>
+    <footer class="page-footer"><div class="footer-top"><p>делам — галочки.<br>тебе — <span>свободный вечер.</span></p><a class="footer-link" href="#task-input">По одной задаче за раз <span aria-hidden="true">↗</span></a></div><div class="footer-bottom"><span class="footer-signature">taskflow <span>сделано для твоего ритма</span></span><span class="save-note"><span class="local-dot" aria-hidden="true"></span><span id="save-status" role="status">Данные хранятся только в вашем браузере</span></span></div></footer>
+  </div>
+
+  <template id="task-template"><li class="task-row"><label class="task-checkbox"><input type="checkbox"><span><svg class="icon"><use href="#i-check"/></svg></span></label><div class="task-content"><span class="task-text"></span><span class="task-meta"></span></div><div class="task-actions"><button type="button" class="icon-button" data-action="edit" aria-label="Редактировать задачу"><svg class="icon"><use href="#i-edit"/></svg></button><button type="button" class="icon-button delete-button" data-action="delete" aria-label="Удалить задачу"><svg class="icon"><use href="#i-trash"/></svg></button></div></li></template>
+  <div id="toast" class="toast" role="status" hidden><span id="toast-message"></span><button id="undo-button" type="button" hidden>Отменить</button><button id="toast-close" type="button" class="icon-button" aria-label="Закрыть уведомление"><svg class="icon"><use href="#i-close"/></svg></button></div>
+  <dialog id="help-dialog" aria-labelledby="help-title"><div class="dialog-heading"><span class="brand-mark"><svg class="icon"><use href="#i-check"/></svg></span><button id="close-help" type="button" class="icon-button" aria-label="Закрыть справку"><svg class="icon"><use href="#i-close"/></svg></button></div><h2 id="help-title">Ваши задачи. Ваш ритм.</h2><p>Добавляйте важное, отмечайте сделанное и освобождайте время для жизни.</p><dl class="shortcut-list"><div><dt>Добавить задачу</dt><dd><kbd>Enter</kbd></dd></div><div><dt>Перейти к новой задаче</dt><dd><kbd>N</kbd></dd></div><div><dt>Найти задачу</dt><dd><kbd>Ctrl / ⌘</kbd> <kbd>K</kbd></dd></div><div><dt>Сохранить изменения</dt><dd><kbd>Enter</kbd></dd></div><div><dt>Отменить редактирование</dt><dd><kbd>Esc</kbd></dd></div></dl><div class="privacy-note"><svg class="icon"><use href="#i-shield"/></svg><p>Без регистрации и серверов. Задачи сохраняются в этом браузере, но не синхронизируются между устройствами. Очистка данных сайта удалит задачи.</p></div></dialog>
+  <noscript><div class="noscript-message">Для работы TaskFlow включите JavaScript в настройках браузера.</div></noscript>
+</body>
+</html>
